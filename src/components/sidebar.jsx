@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "./Button";
 import App from "../App";
 
-export default function Sidebar({ addProjects, projectState }) {
+export default function Sidebar({ addProjects, projectState, handleClick }) {
   return (
     <aside className="w=1/3 px-16 bg-stone-900 text-stone-50 md:w-72 rounded-r-xl">
       <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-200">
@@ -16,7 +16,11 @@ export default function Sidebar({ addProjects, projectState }) {
           {projectState.projects.map((id) => {
             return (
               <tr key={id.id}>
-                <button>{id.title}</button>
+                <td>
+                  <Button className="" onClick={handleClick}>
+                    {id.title}
+                  </Button>
+                </td>
               </tr>
             );
           })}
