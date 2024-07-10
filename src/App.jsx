@@ -28,21 +28,33 @@ function App() {
       };
       return {
         ...prevState,
+        selectedProject: undefined,
         projects: [...prevState.projects, newProject],
+      };
+    });
+  }
+
+  function handleCloseProject() {
+    setProjectState((prevState) => {
+      return {
+        ...prevState,
+        selectedProject: undefined,
       };
     });
   }
 
   console.log(projectState);
 
-  function handleClick() {
+  function handleClick(arrayId) {
     setProjectChosen(true);
   }
 
   let content;
 
   if (projectState.selectedProject === null) {
-    content = <NewProject onAdd={handleAddProject} />;
+    content = (
+      <NewProject onAdd={handleAddProject} onCancel={handleCloseProject} />
+    );
   } else if (projectState.selectedProject === undefined) {
     content = <NoProject addProjects={handleProjects} />;
   }
