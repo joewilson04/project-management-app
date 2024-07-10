@@ -9,7 +9,15 @@ function App() {
     selectedProject: undefined,
     projects: [],
   });
-  const [projectChosen, setProjectChosen] = useState(false);
+
+  function handleSelectProject(id) {
+    setProjectState((prevState) => {
+      return {
+        ...prevState,
+        selectedProject: id,
+      };
+    });
+  }
 
   function handleProjects() {
     setProjectState((prevState) => {
@@ -45,11 +53,12 @@ function App() {
 
   console.log(projectState);
 
-  function handleClick(arrayId) {
-    setProjectChosen(true);
-  }
+  const selectedProjectId = projectState.projects.find(
+    (projects) => projects.id === projectState.selectedProject
+  );
 
-  let content;
+  console.log(selectedProjectId);
+  let content = <ShowProject projects={selectedProjectId} />;
 
   if (projectState.selectedProject === null) {
     content = (
@@ -59,16 +68,13 @@ function App() {
     content = <NoProject addProjects={handleProjects} />;
   }
 
-  if (projectChosen === true) {
-    content = <ShowProject projectState={projectState} />;
-  }
-
   return (
     <main className="h-screen my-8 flex gap-8">
       <Sidebar
         addProjects={handleProjects}
         projectState={projectState}
-        handleClick={handleClick}
+        projects={projectState.projects}
+        onSelectProject={handleSelectProject}
       />
       {content}
     </main>
