@@ -58,7 +58,13 @@ function App() {
   );
 
   console.log(selectedProjectId);
-  let content = <ShowProject projects={selectedProjectId} />;
+  let content = (
+    <ShowProject
+      projects={selectedProjectId}
+      setProjectState={setProjectState}
+      projectState={projectState}
+    />
+  );
 
   if (projectState.selectedProject === null) {
     content = (
