@@ -8,7 +8,7 @@ const Modal = forwardRef(function Modal({ children }, ref) {
     return {
       open() {
         dialog.current.showModal();
-        console.log("test");
+        //console.log("test");
       },
     };
   });

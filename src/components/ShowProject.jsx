@@ -1,9 +1,14 @@
 import App from "../App";
+import Tasks from "./Tasks";
 
 export default function ShowProject({
   projects,
   setProjectState,
   projectState,
+  onDelete,
+  onAddTask,
+  onDeleteTask,
+  tasks,
 }) {
   const formattedDate = new Date(projects?.dueDate).toLocaleDateString(
     "en-US",
@@ -14,11 +19,6 @@ export default function ShowProject({
     }
   );
 
-  function handleDeleteProject(projects, selectedProject) {
-    const alteredProject = [projectState.projects?.slice(0, 1)];
-    setProjectState({ selectedProject: undefined, projects: alteredProject });
-  }
-
   return (
     <div className="w-[35rem] mt-16">
       <header className="pb-4 mb-4 border-b-2 border-stone-300">
@@ -26,10 +26,9 @@ export default function ShowProject({
           <h1 className="text-3xl font-bold text-stone-600 mb-2">
             {projects?.title}
           </h1>
-
           <button
             className="text-stone-600 hover:text-stone-950"
-            onClick={() => handleDeleteProject(projects)}
+            onClick={onDelete}
           >
             Delete
           </button>
@@ -39,6 +38,7 @@ export default function ShowProject({
           {projects?.description}
         </p>
       </header>
+      <Tasks onAdd={onAddTask} onDelete={onDeleteTask} tasks={tasks} />
     </div>
   );
 }
